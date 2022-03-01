@@ -6,11 +6,14 @@ const router = express.Router()
 const { getUlwazi,setUlwazi, updateUlwazi, deleteUlwazi 
 } = require('../controllers/ulwaziController')
 
-//GET HTTP + POST HTTP reuests simiplified
-router.route("/").get(getUlwazi).post(setUlwazi)
+//authentication variable applied to uwlazi main
+const { protect } = require('../middleware/authenticateMiddleware')
 
-//PUT HTTP + Delete HTTP reuests simiplified
-router.route("/:id").delete(deleteUlwazi).put(updateUlwazi)
+//GET HTTP + POST HTTP reuests simiplified, updated route method by adding "protect," after creating authentication middleware
+router.route("/").get(protect, getUlwazi).post(protect, setUlwazi)
+
+//PUT HTTP + Delete HTTP reuests simiplified, , updated route method by adding "protect," after creating authentication middleware
+router.route("/:id").delete(protect, deleteUlwazi).put(protect, updateUlwazi)
 
 //export variable 
 module.exports = router
