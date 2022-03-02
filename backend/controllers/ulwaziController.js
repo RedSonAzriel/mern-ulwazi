@@ -6,7 +6,8 @@ const Africa = require('../models/africaModel')
 //@route - GET /api/ulwazi
 //@access - Private 
 const getUlwazi = asyncHandler(async(req, res) => {
-    const africa = await Africa.find()
+    //connected with the token authorization, returning the user by id when a GET request is made
+    const africa = await Africa.find({ user: req.user.id})
     res.status(200).json(africa)
 })
 
@@ -23,7 +24,7 @@ const setUlwazi = asyncHandler(async(req, res) => {
 
     const africa = await Africa.create({
         text: req.body.text,
-
+        user: req.user.id,
     })
     
     res.status(200).json(africa)
@@ -39,6 +40,20 @@ const updateUlwazi = asyncHandler(async(req, res ) => {
     if(!africa) {
         res.status(400)
         throw new Error('Africa not updated')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    //checks for the user exists in the database
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    //Make sure the loggined in user matches the ulwazi user
+    if(goal.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     const updatedAfrica = await Africa.findByIdAndUpdate(req.params.id, req.body, {
@@ -60,6 +75,20 @@ const deleteUlwazi = asyncHandler(async(req, res ) => {
         throw new Error('Africa not deleted')
     }
 
+    const user = await User.findById(req.user.id)
+
+    //checks for the user exists in the database
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    //Make sure the loggined in user matches the ulwazi user
+    if(goal.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+    
     await Africa.remove()
 
     res.status(200).json({id: req.params.id})
