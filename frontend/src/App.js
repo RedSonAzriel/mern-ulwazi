@@ -4,12 +4,32 @@
 // import { Counter } from './features/counter/Counter';
 // import './App.css';
 
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+//header component
+import Header from "./components/header"
+
+import Dashboard from './pages/Dashboard'
+import Login from './pages/Login'
+import Register from './pages/Register'
+
+// In react router 6, nothing that doesnt contain the "<routes>" tag can go inside the routes subcategory (referring to line 24)
+
 function App() {
   return (
-    <div className="App">
-      <h1>Ulwazi</h1>
-    </div>
-  );
+    <>
+      <Router>
+        <div className="container">
+          <Header />
+          <Routes>
+              <Route path='/' element={<Dashboard />}/>
+              <Route path='/login' element={<Login />}/>
+              <Route path='/register' element={<Register />}  />
+          </Routes>  
+            <h1>Ulwazi</h1>
+        </div>
+      </Router>
+    </>
+  )
 }
 
 export default App;
