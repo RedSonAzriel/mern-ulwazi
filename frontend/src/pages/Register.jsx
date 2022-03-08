@@ -13,7 +13,17 @@ function Register() {
 
   const {name, email, password, password2 } = formData
 
-  const onChange = () => {}
+  const onChange = () => {
+    setFormData((prevState) => ({
+      //setting the form data to an object, obtaining the key as the name value. e is the syntax for Handling Events in React.
+      ...prevState,
+      [Event.target.name]: Event.target.value, 
+    }))
+  }
+  //creating a function called onSubmit. e is the syntax for Handling Events in React.
+  const onSubmit = (Event) => {
+    Event.preventDefault()
+  }
 
   return (
   <>
@@ -25,7 +35,7 @@ function Register() {
     </section>
 
     <section className="form">
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <input 
             type="text" 
@@ -37,6 +47,44 @@ function Register() {
             onChange={onChange} 
           />
         </div>
+
+        <div className="form-group">
+          <input 
+            type="email" 
+            className="form-control" 
+            id='email' 
+            name='email' 
+            value={email} 
+            placeholder='Enter your email' 
+            onChange={onChange} 
+          />
+        </div>
+
+        <div className="form-group">
+          <input 
+            type="password" 
+            className="form-control" 
+            id='password' 
+            name='password' 
+            value={password} 
+            placeholder='Enter your password' 
+            onChange={onChange} 
+          />
+        </div>
+
+        <div className="form-group">
+          <input 
+            type="password" 
+            className="form-control" 
+            id='password2' 
+            name='password2' 
+            value={password2} 
+            placeholder='Confirm your password' 
+            onChange={onChange} 
+          />
+        </div>
+        <div className="form-group">
+          <button type="submit" className='btn btn-block'>Submit</button></div>
       </form>
     </section>
 

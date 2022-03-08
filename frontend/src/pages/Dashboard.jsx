@@ -1,11 +1,7 @@
-//Adding SVG File (convert to JSX format)
-import Logo from './components/Logo'
 
 function Dashboard() {
   return (
-    <div>
-      {}
-      <Logo/>      
+    <div>   
     </div>
   )
 }
