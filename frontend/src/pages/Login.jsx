@@ -1,6 +1,6 @@
 //Allows us to use component leave states since we are using form fields. Needs more research on the background of these imports. 
 import {useState, useEffect} from 'react'
-//Not using the FaUser
+//Not using the FaUser for Login, instead using FaSignInAlt
 import {FaSignInAlt} from 'react-icons/fa'
 
 
@@ -9,6 +9,7 @@ function Login() {
     email: '',
     password: '',
   })
+
 //Only need email password to Login
   const { email, password } = formData
 
@@ -19,10 +20,11 @@ function Login() {
       [Event.target.name]: Event.target.value, 
     }))
   }
-
+//creating a function called onSubmit. e is the syntax for Handling Events in React.
   const onSubmit = (e) => {
     Event.preventDefault()
   }
+
   return (
   <>
     <section className='heading'>

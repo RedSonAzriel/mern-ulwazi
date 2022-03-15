@@ -83,7 +83,7 @@ const deleteUlwazi = asyncHandler(async(req, res ) => {
         throw new Error('User not found')
     }
 
-    //Make sure the loggined in user matches the ulwazi user
+    //Make sure the login info in user matches the ulwazi user
     if(goal.user.toString() !== user.id) {
         res.status(401)
         throw new Error('User not authorized')
